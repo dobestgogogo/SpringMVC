@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.tjx.controller"/>
+
+    <mvc:annotation-driven/>
+
+    <!--配置自定义拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/intercoptor/a"/>
+            <bean class="com.tjx.controller.Intercoptor1"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/intercoptor/a"/>
+            <bean class="com.tjx.controller.Intercoptor2"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        &lt;!&ndash;前缀&ndash;&gt;
+        <property name="prefix" value="/WEB-INF/"/>
+        &lt;!&ndash;后缀&ndash;&gt;
+        <property name="suffix" value=".jsp"/>
+    </bean>
+-->
+    <!--<mvc:annotation-driven conversion-service="convertService"/>-->
+
+    <!--配置我们自定义的类型转换器-->
+    <!--<bean id="convert" class="com.tjx.controller.Convert"/>
+    &lt;!&ndash;更改springMVC默认转换器&ndash;&gt;
+    <bean id="convertService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="convert"/>
+            </set>
+        </property>
+    </bean>-->
+
+    <!-- springmvc提供的简单异常处理器 -->
+    <!--<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        &lt;!&ndash;设置用户看到的提示错误信息 定义异常处理页面用来获取异常信息的变量名，也可不定义，默认名为exception&ndash;&gt;
+        <property name="exceptionAttribute" value="ex"/>
+        &lt;!&ndash;设置异常类型 对应的 错误页面&ndash;&gt;
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.ArithmeticException">error/error1</prop>
+                <prop key="com.tjx.controller.AgeException">error/error1</prop>
+            </props>
+        </property>
+        &lt;!&ndash;如果出现其他异常默认跳转的页面&ndash;&gt;
+        <property name="defaultErrorView" value="welcome"/>
+    </bean>-->
+
+    <!-- 定义默认的异常处理页面 -->
+   <!-- <bean class="com.tjx.controller.ExceptionReslover"/>-->
+
+
+<!--ID必须是 multipartResolver 在核心控制器中已经规定值了 文件上传-->
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        &lt;!&ndash;解决乱码问题&ndash;&gt;
+        <property name="defaultEncoding" value="UTF-8"/>
+        &lt;!&ndash;文件总大小&ndash;&gt;
+        <property name="maxUploadSize" value="500000"/>
+        &lt;!&ndash;文件单个大小&ndash;&gt;
+        <property name="maxUploadSizePerFile" value="5000"/>
+    </bean>-->
+</beans>
